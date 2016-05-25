@@ -9,6 +9,7 @@ from random import choice, randint
 from sys import version_info
 from time import time, sleep
 from re import compile as re_compile
+from logging import getLogger
 
 from requests.exceptions import RequestException
 from requests.adapters import HTTPAdapter
@@ -37,13 +38,16 @@ except ImportError:
     netifaces = None
 
 
+logger = getLogger('digger.mixins')
+
+
 __all__ = [
     'BaseUrlMixin',
     'BeautifulSoupMixin',
     'CsvMixin',
     'EnsureMixin',
     'JsonMixin',
-    'MultiSourceIpAddressMixin',
+    'MultipleIpAddressMixin',
     'PacingMixin',
     'RandomizeUserAgentMixin',
     'RegexMixin'

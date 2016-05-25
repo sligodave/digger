@@ -4,7 +4,7 @@ import logging
 from requests import Session
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('digger.Digger')
 
 
 class Digger(object):
