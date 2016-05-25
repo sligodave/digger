@@ -70,10 +70,13 @@ class BaseUrlMixin(object):
 class BeautifulSoupMixin(object):
     def __init__(self, **kwargs):
         if BeautifulSoup is None:
-            raise ImportError('No module named bs4')
+            raise ImportError('No module named bs4 (Install "beautifulsoup4")')
+        self.bs_config = kwargs.get('bs_config', {})
         super(BeautifulSoupMixin, self).__init__(**kwargs)
 
     def bs_load(self, data, *args, **kwargs):
+        if not args and 'features' not in kwargs:
+            kwargs['features'] = 'html.parser'
         data = data if isinstance(data, basestring) else data.text
         return BeautifulSoup(data, *args, **kwargs)
 
@@ -221,7 +224,7 @@ class MultipleIpAddressMixin(object):
     def multi_ip_register_adapter(self, ip_addresses=None, randomize=False):
         if ip_addresses is None:
             if netifaces is None:
-                raise ImportError('No module named netifaces')
+                raise ImportError('No module named netifaces (Install "netifaces")')
             ip_addresses = []
             for interface in netifaces.interfaces():
                 if (
